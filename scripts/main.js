@@ -2,9 +2,13 @@ $(document).ready(function () {
   var currentStep = 1;
   var $btnNext = $("#next");
   var $btnBack = $("#back");
+  var $btnSend = $("#send");
+  var $btnClose = $("#close");
 
   // Hide the "Siguiente" button at startup
   $btnNext.hide();
+  $btnSend.hide();
+  $btnClose.hide();
 
   // Function to handle clicking on an icon
   function handleIconClick() {
@@ -23,6 +27,7 @@ $(document).ready(function () {
                         $(this).hide().empty();
                         step3QuizContainer.find(".optns").show();
                         $btnNext.hide(); // Hide the "Siguiente" button
+                        $btnSend.hide();
                       });
   }
 
@@ -52,25 +57,52 @@ $(document).ready(function () {
   
     if (currentStep === 1) {
       $btnNext.show();
+      $btnSend.hide();
     } else if (currentStep === 2) {
+      $btnBack.hide();
+
+      $btnSend.hide();
       if ($('input[type="radio"][name="step2brk1y"]:checked').val() === "Si") {
         $btnNext.toggle(isStep2an1Checked && isStep2an2Checked);
       } else if ($('input[type="radio"][name="step2brk1y"]:checked').val() === "No") {
         $btnNext.toggle(isStep2an1Checked);
       } else {
         $btnNext.hide();
+        $btnSend.hide();
       }
     } else if (currentStep === 3) {
-      $btnNext.toggle(checkAllQuestionsAnswered() && !areOptionsVisible);
+      $btnNext.hide();
+      $btnSend.toggle(checkAllQuestionsAnswered() && !areOptionsVisible);
+      
     } else if (currentStep === 4) {
-      $btnNext.show();
+      //$btnNext.show();
       $btnBack.hide();
-      $btnNext.html('Cerrar');
+      //$btnNext.html('Cerrar');
+      $btnNext.hide();
+      $btnSend.hide();
+      $btnClose.show();
       $('[name="happy"]').show();
     } else {
       $btnNext.hide();
+      $btnSend.hide();
+      $btnBack.hide();
     }
   }
+
+  $btnSend.click(function() {
+    if (currentStep < 4) {
+      $(".step" + currentStep).removeClass("active");
+      $(".section").eq(currentStep - 1).hide();
+      $(".wrapper").animate({ scrollTop: 0 }, "slow");
+      currentStep++;
+      $(".step" + currentStep).addClass("active");
+      $(".section").eq(currentStep - 1).show();
+      if (currentStep > 1) {
+        $("#back").show();
+      }
+    }
+    updateNextButtonState();
+  });
 
   $btnNext.click(function () {
     if (currentStep < 4) {
@@ -103,14 +135,16 @@ $(document).ready(function () {
   });
 
   // 'change' event for 'step2brk1y' radio buttons
+  
   $('input[type="radio"][name="step2brk1y"]').change(function() {
     var value = $(this).val();
   
     if (value === 'Si') {
-      $('[name="step2an2"]').show();
+      //$('[name="step2an2"]').show();
       $('[name="step2an1"]').show();
+      $('[name="step2an2"]').find('input[type="checkbox"]').prop('checked', true);
     } else if (value === 'No') {
-      $('[name="step2an2"]').hide();
+      //$('[name="step2an2"]').hide();
       $('[name="step2an2"]').find('input[type="checkbox"]').prop('checked', false);
     }
     updateNextButtonState();
@@ -125,3 +159,8 @@ $(document).ready(function () {
   // Initialize "Siguiente" button state on page load
   updateNextButtonState();
 });
+
+
+$btnClose.click(function(){
+  window.close();
+})
