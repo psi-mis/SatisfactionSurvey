@@ -510,3 +510,21 @@ body {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+.disabledbutton {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.complete-heigth{
+  height: 100%;
+  display:flex;
+}
+
+.center-flex{
+  justify-content: center;
+  align-items: center;
+}
+.center-text{
+  text-align: center;
+}
