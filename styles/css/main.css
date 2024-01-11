@@ -528,3 +528,39 @@ body {
 .center-text{
   text-align: center;
 }
+
+
+.thumb-one {
+  width: 36px;
+  height: 36px;
+  background-image: url('/images/1-like-disagree.png');
+  background-size: cover;
+  }
+
+.thumb-two {
+  width: 36px;
+  height: 36px;
+  background-image: url('/images/2-like-disagree.png');
+  background-size: cover;
+}
+
+.thumb-three {
+  width: 36px;
+  height: 36px;
+  background-image: url('/images/3-like-neither-agree-nor-disagree.png');
+  background-size: cover;
+}
+
+.thumb-four {
+  width: 36px;
+  height: 36px;
+  background-image: url('/images/4-like-agree.png');
+  background-size: cover;
+}
+
+.thumb-five {
+  width: 36px;
+  height: 36px;
+  background-image: url('/images/5-like-strongly-agree.png');
+  background-size: cover;
+}
