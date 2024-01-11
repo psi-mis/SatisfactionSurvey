@@ -224,7 +224,7 @@ $(document).ready(function () {
     let checkboxConsejeria = $("#checkbox-consejeria").is(":checked");
     let checkboxEntrega = $("#checkbox-entrega").is(":checked");
     let checkboxAtencion = $("#checkbox-atencion").is(":checked");
-    let checkboxOtros = $("#checkbox-atencion").is(":checked");
+    let checkboxOtros = $("#checkbox-otros").is(":checked");
 
     let wasInformationDeliveredRadioButton = $(
       "input[name = 'step2brk1y']:checked"
