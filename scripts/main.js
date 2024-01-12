@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  const url = "";
+  const username = '';
+  const password = ''
+
   var queryParams = getUrlQueryParams();
   console.log(queryParams);
   console.log(isSurveyAvailable(queryParams['token']));
@@ -232,14 +236,11 @@ $(document).ready(function () {
 
   function isSurveyAvailable(token) {
     let isAvailable = false;
-    const baseUrl=''
-    const url = baseUrl+"";
     const payload = {
       action: "survey_status",
       token: token,
     };
-    const username = '';
-    const password='';
+
     const headers = {
       'Access-Control-Allow-Origin': '*',
       "Content-Type": "application/json",
@@ -308,10 +309,10 @@ $(document).ready(function () {
     const headers = {
       'Access-Control-Allow-Origin': '*',
       "Content-Type": "application/json",
-      "Authorization": "Basic " + btoa("chatbotchocolate" + ":" + "Nxh$KV6Sqk6wQ")
+      "Authorization": "Basic " + btoa(username + ":" + password)
     };
 
-    const url = "http://localhost:3020/https://api-dev.psi-connect.org/R_LA.sat";
+
     const payload = {
       action: "survey_record",
       token: getUrlQueryParams().token,
