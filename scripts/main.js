@@ -1,5 +1,19 @@
 $(document).ready(function () {
+
+  var queryParams = getUrlQueryParams();
+  console.log(queryParams);
+  console.log(isSurveyAvailable(queryParams['token']));
+
+  var firstSection = $('#first-section');
+  var lastSection = $('#last-section');
+  var isSurveyAv = isSurveyAvailable(queryParams["token"]);
   var currentStep = 1;
+  if(!isSurveyAv){
+    currentStep = 4;
+    firstSection.hide();
+    lastSection.show();
+  }
+
   var $btnNext = $("#next");
   var $btnBack = $("#back");
   var $btnSend = $("#send");
@@ -216,6 +230,41 @@ $(document).ready(function () {
     return vars;
   }
 
+  function isSurveyAvailable(token) {
+    let isAvailable = false;
+    const baseUrl=''
+    const url = baseUrl+"";
+    const payload = {
+      action: "survey_status",
+      token: token,
+    };
+    const username = '';
+    const password='';
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      "Content-Type": "application/json",
+      "Authorization": "Basic " + btoa(username + ":" + password)
+    };
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      async: false,
+      dataType: 'json',
+      data: JSON.stringify(payload),
+      headers: headers,
+      success: (response) => {
+        if(response.event_status === "DRAFT" ){
+          isAvailable = true
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Hubo un problema al enviar la encuesta.");
+      },
+    });
+    return isAvailable;
+  }
+
   function sendSurveyData() {
     let checkboxConsultaGeneral = $("#checkbox-consulta-general").is(
       ":checked"
@@ -229,6 +278,7 @@ $(document).ready(function () {
     let wasInformationDeliveredRadioButton = $(
       "input[name = 'step2brk1y']:checked"
     ).val();
+    let wasContraceptiveInfoReceived = false;
     let question1Answer = $(".final-answer1").find(".opt").attr("data-value");
     let question2Answer = $(".final-answer2").find(".opt").attr("data-value");
     let question3Answer = $(".final-answer3").find(".opt").attr("data-value");
@@ -236,8 +286,11 @@ $(document).ready(function () {
     let question5Answer = $(".final-answer5").find(".opt").attr("data-value");
     let question6Answer = $(".final-answer6").find(".opt").attr("data-value");
     let question7Answer = $(".final-answer7").find(".opt").attr("data-value");
+    if (wasInformationDeliveredRadioButton === "true"){
+      wasContraceptiveInfoReceived = true;
+    }
 
-   /*  console.log(checkboxConsultaGeneral);
+    /*  console.log(checkboxConsultaGeneral);
     console.log(checkboxCitologia);
     console.log(checkboxConsejeria);
     console.log(checkboxEntrega);
@@ -251,66 +304,72 @@ $(document).ready(function () {
     console.log(question5Answer);
     console.log(question6Answer);
     console.log(question7Answer); */
-    const url = 'http://localhost:3008/live-agents/registerClient'
+
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      "Content-Type": "application/json",
+      "Authorization": "Basic " + btoa("chatbotchocolate" + ":" + "Nxh$KV6Sqk6wQ")
+    };
+
+    const url = "http://localhost:3020/https://api-dev.psi-connect.org/R_LA.sat";
     const payload = {
       action: "survey_record",
       token: getUrlQueryParams().token,
-      surveyDatetime: new Date().toISOString(),
       datavalues: [
         {
-          datapoint: "puKECcdj3M8",
+          datapoint: "serviceDesired_medcons",
           value: checkboxConsultaGeneral,
         },
         {
-          datapoint: "nKQXSnhaVTD",
+          datapoint: "serviceDesired_cito",
           value: checkboxCitologia,
         },
         {
-          datapoint: "S7AXpql3zR5",
+          datapoint: "serviceDesired_fplcoun_a",
           value: checkboxConsejeria,
         },
         {
-          datapoint: "QapYvc8bxqI",
+          datapoint: "serviceDesired_fplcoun_b",
           value: checkboxEntrega,
         },
         {
-          datapoint: "TiXiw99bTxd",
+          datapoint: "serviceDesired_osti",
           value: checkboxAtencion,
         },
         {
-          datapoint: "BbIpwDoh596",
+          datapoint: "serviceDesired_other",
           value: checkboxOtros,
         },
         {
-          datapoint: "MRsvIpVjrf2",
-          value: wasInformationDeliveredRadioButton,
+          datapoint: "contraceptiveInfoReceived",
+          value: wasContraceptiveInfoReceived,
         },
         {
-          datapoint: "Q0uOArWroLA",
+          datapoint: "userGeneralSat",
           value: question1Answer,
         },
         {
-          datapoint: "fHgpGfEIGuL",
+          datapoint: "waitingSat",
           value: question2Answer,
         },
         {
-          datapoint: "Yy3LLFvjb1V",
+          datapoint: "kindnessStaffSat",
           value: question3Answer,
         },
         {
-          datapoint: "TeRy5oTEmFo",
+          datapoint: "kindnessProviderSat",
           value: question4Answer,
         },
         {
-          datapoint: "IJqSoSxHz7X",
+          datapoint: "claritySat",
           value: question5Answer,
         },
         {
-          datapoint: "M2YvHnEzuDa",
+          datapoint: "durationSat",
           value: question6Answer,
         },
         {
-          datapoint: "oposne24pSc",
+          datapoint: "recommendSat",
           value: question7Answer,
         },
       ],
@@ -319,15 +378,18 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       url: url,
-      data: payload,
-      success: endSurvey,
-      error: function(jqXHR, textStatus, errorThrown){
-        alert('Hubo un problema al enviar la encuesta.');
-      }
-    })
+      headers: headers,
+      data: JSON.stringify(payload),
+      success: (response)=>{endSurvey(response)},
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Hubo un problema al enviar la encuesta.");
+      },
+      async:false,
+    });
   }
 
-  function endSurvey() {
+  function endSurvey(response) {
+    console.log(response);
     if (currentStep < 4) {
       $(".step" + currentStep).removeClass("active");
       $(".section")
@@ -344,9 +406,7 @@ $(document).ready(function () {
       }
     }
     updateNextButtonState();
-    }
-
-
+  }
 
   // Assign the click event to icons
   $(".opt").click(handleIconClick);
