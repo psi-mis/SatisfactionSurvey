@@ -3,9 +3,16 @@ $(document).ready(function () {
 
   const url = "";
   const username = '';
-  const password = ''
+  const password = '';
 
   var queryParams = getUrlQueryParams();
+
+  const $btnNext = $("#next");
+  const $btnBack = $("#back");
+  const $btnSend = $("#send");
+  $btnNext.hide();
+  $btnSend.hide();
+  $btnBack.hide();
 
   var firstSection = $('#first-section');
   var lastSection = $('#last-section');
@@ -30,10 +37,8 @@ $(document).ready(function () {
   }
 
 
-  var $btnNext = $("#next");
-  var $btnBack = $("#back");
-  var $btnSend = $("#send");
-  var $btnClose = $("#close");
+ 
+
 
   var question1 = $("#question-1");
   var question2 = $("#question-2");
@@ -51,9 +56,7 @@ $(document).ready(function () {
   question7.addClass("disabledbutton");
 
   // Hide the "Siguiente" button at startup
-  $btnNext.hide();
-  $btnSend.hide();
-  $btnClose.hide();
+  
 
   // Function to handle clicking on an icon
   function handleIconClick() {
@@ -117,7 +120,7 @@ $(document).ready(function () {
       //$btnNext.html('Cerrar');
       $btnNext.hide();
       $btnSend.hide();
-      $btnClose.show();
+      
       $('[name="happy"]').show();
     } else {
       $btnNext.hide();
@@ -418,6 +421,7 @@ $(document).ready(function () {
   }
 
   function showEndingSection(){
+    currentStep=4;
     firstSection.hide();
     warningSection.hide();
 
@@ -429,6 +433,7 @@ $(document).ready(function () {
   }
 
   function showWarningSection(){
+    currentStep=4;
     firstSection.hide();
     lastSection.hide();
 
