@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="wrapper">
-      <div class="section complete-height" id="first-section">
+      <div class="section complete-height" id="first-section" style="display: none">
         <div class="grid-survey center-flex">
           <div class="grid-row card">
             <div class="subtitle center-text">
@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="section" style="display: none">
+      <div class="section" style="display: none" id="question-section">
         <div class="grid-survey" name="step2an1">
           <div class="subtitle-s">¿Qué servicio(s) recibiste?*</div>
 
@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <div class="section" style="display: none">
+      <div class="section" style="display: none" id="question-section">
         <div id="qnr">
           <div class="question" id="question-1">
             <div class="question-answer">
@@ -285,10 +285,20 @@
           </div>
         </div>
       </div>
+
+      <div class="section complete-height" style="display: none" id="last-section-warning">
+        <div class="grid-survey center-flex" name="message">
+          <div class="grid-row card">
+            <div class="subtitle center-text">No se pudo realizar la conexión con el servidor.</div>
+            <div class="para">
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="footer">
       <div id="back" class="btn-primary" style="display: none">Anterior</div>
-      <div id="next" class="btn-primary">Siguiente</div>
+      <div id="next" class="btn-primary" style="display: none">Siguiente</div>
       <div id="send" class="btn-primary" style="display:none">Enviar cuestionario</div>
     </div>
   </div>

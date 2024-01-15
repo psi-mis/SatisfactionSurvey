@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
   const url = "";
@@ -5,18 +6,29 @@ $(document).ready(function () {
   const password = ''
 
   var queryParams = getUrlQueryParams();
-  console.log(queryParams);
-  console.log(isSurveyAvailable(queryParams['token']));
 
   var firstSection = $('#first-section');
   var lastSection = $('#last-section');
+  var warningSection = $('#last-section-warning');
   var isSurveyAv = isSurveyAvailable(queryParams["token"]);
+  console.log(isSurveyAv);
   var currentStep = 1;
-  if(!isSurveyAv){
-    currentStep = 4;
-    firstSection.hide();
-    lastSection.show();
+
+  firstSection.hide();
+  lastSection.hide();
+
+  if(isSurveyAv){
+    showWelcomeSection();
   }
+
+  if(isSurveyAv == false){
+    showEndingSection();
+  }
+
+  if(isSurveyAv === 'error'){
+    showWarningSection();
+  }
+
 
   var $btnNext = $("#next");
   var $btnBack = $("#back");
@@ -47,7 +59,7 @@ $(document).ready(function () {
   function handleIconClick() {
     var selectedValue = $(this).data("value");
     var step3QuizContainer = $(this).closest(".question");
-    //console.log("selectedValue: " + selectedValue);
+  
 
     step3QuizContainer.find(".optns").hide();
     step3QuizContainer
@@ -163,7 +175,6 @@ $(document).ready(function () {
   }
 
   function disableAllOtherQuestions(section) {
-    //console.log(section.find(".opt").attr("id"));
 
     const questions = [
       question1,
@@ -178,12 +189,13 @@ $(document).ready(function () {
       (question) =>
         section.find(".opt").attr("id") == question.find(".opt").attr("id")
     );
+
     const remainingQuestions = questions.filter(
       (question) =>
         section.find(".opt").attr("id") != question.find(".opt").attr("id")
     );
+
     clickedQuestion.find(".answer-selected").children == 0;
-    //console.log(clickedQuestion.find(".answer-selected").children().length == 1);
 
     if (clickedQuestion.find(".answer-selected").children().length == 1) {
       for (let question of remainingQuestions) {
@@ -194,7 +206,7 @@ $(document).ready(function () {
 
   function enableSectionsWithSelectedOptions() {
     const clickedElementId = $(this).attr("id");
-    //console.log(clickedElementId);
+    
     const questions = [
       question1,
       question2,
@@ -260,7 +272,8 @@ $(document).ready(function () {
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Hubo un problema al enviar la encuesta.");
+        warningSection.show();
+        isAvailable = 'error';
       },
     });
     return isAvailable;
@@ -290,21 +303,6 @@ $(document).ready(function () {
     if (wasInformationDeliveredRadioButton === "true"){
       wasContraceptiveInfoReceived = true;
     }
-
-    /*  console.log(checkboxConsultaGeneral);
-    console.log(checkboxCitologia);
-    console.log(checkboxConsejeria);
-    console.log(checkboxEntrega);
-    console.log(checkboxAtencion);
-    console.log(checkboxOtros);
-    console.log(wasInformationDeliveredRadioButton);
-    console.log(question1Answer);
-    console.log(question2Answer);
-    console.log(question3Answer);
-    console.log(question4Answer);
-    console.log(question5Answer);
-    console.log(question6Answer);
-    console.log(question7Answer); */
 
     const headers = {
       'Access-Control-Allow-Origin': '*',
@@ -383,7 +381,11 @@ $(document).ready(function () {
       data: JSON.stringify(payload),
       success: (response)=>{endSurvey(response)},
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Hubo un problema al enviar la encuesta.");
+        $('*[id*=question-section]:visible').each(function() {
+          $(this).hide();
+        });
+      
+        showWarningSection();
       },
       async:false,
     });
@@ -409,6 +411,34 @@ $(document).ready(function () {
     updateNextButtonState();
   }
 
+  function showWelcomeSection(){
+    firstSection.show();
+    lastSection.hide();
+    warningSection.hide();
+  }
+
+  function showEndingSection(){
+    firstSection.hide();
+    warningSection.hide();
+
+    $btnNext.hide();
+    $btnSend.hide();
+    $btnBack.hide();
+
+    lastSection.show();
+  }
+
+  function showWarningSection(){
+    firstSection.hide();
+    lastSection.hide();
+
+    $btnNext.hide();
+    $btnSend.hide();
+    $btnBack.hide();
+    
+    warningSection.show();
+  }
+
   // Assign the click event to icons
   $(".opt").click(handleIconClick);
   $(".opt").click(enableNextQuestion);
@@ -419,25 +449,7 @@ $(document).ready(function () {
   // Initially hide all 'answers selected'
   $(".answer-selected").hide();
 
-  /* $btnSend.click(function () {
-    if (currentStep < 4) {
-      $(".step" + currentStep).removeClass("active");
-      $(".section")
-        .eq(currentStep - 1)
-        .hide();
-      $(".wrapper").animate({ scrollTop: 0 }, "slow");
-      currentStep++;
-      $(".step" + currentStep).addClass("active");
-      $(".section")
-        .eq(currentStep - 1)
-        .show();
-      if (currentStep > 1) {
-        $("#back").show();
-      }
-    }
-    updateNextButtonState();
-  });
- */
+
   $btnNext.click(function () {
     if (currentStep < 4) {
       $(".step" + currentStep).removeClass("active");
