@@ -1,44 +1,37 @@
 
-|javascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 55 to the 15 allowed.(‚÷ï¡ûÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(¨ˆõœøÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(ø§Íûÿÿÿÿ8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(¡‡¥÷8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(ŸÜšåÿÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(Õ´À’ùÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(ÊœùÂÿÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(†ÿ…›şÿÿÿÿ8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(œ¾ª«8¾ÕØÏ1
-Qjavascript:S3504")Unexpected var, use let or const instead.(¹š–Üûÿÿÿÿ8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(ÔÔÑ8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(„É’Ò8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(Â—ö8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(¦Î¡ˆ8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(ï©Ù§8¾ÕØÏ1
-Ljavascript:S3504")Unexpected var, use let or const instead.(ÑÀˆ¼8¾ÕØÏ1
-Qjavascript:S3504 ")Unexpected var, use let or const instead.(®å£¿ıÿÿÿÿ8¾ÕØÏ1
-Ljavascript:S35040")Unexpected var, use let or const instead.(´×”8¾ÕØÏ1
-Qjavascript:S35041")Unexpected var, use let or const instead.(´ó°³ùÿÿÿÿ8¾ÕØÏ1
-Ajavascript:S1252"Remove this commented out code.(©¥¸á8¾ÕØÏ1
-Ljavascript:S3504I")Unexpected var, use let or const instead.(³ˆñ˜8¾ÕØÏ1
-Fjavascript:S125K"Remove this commented out code.(ÃĞĞËıÿÿÿÿ8¾ÕØÏ1
-Qjavascript:S3504N")Unexpected var, use let or const instead.(°û¿úÿÿÿÿ8¾ÕØÏ1
-Ajavascript:S125g"Remove this commented out code.(ÕÑÙ¸8¾ÕØÏ1
-Fjavascript:S125i"Remove this commented out code.(—•’§ûÿÿÿÿ8¾ÕØÏ1
-Ljavascript:S3504v")Unexpected var, use let or const instead.(ê®ı‹8¾ÕØÏ1
-Rjavascript:S3504")Unexpected var, use let or const instead.(Ó¯÷èşÿÿÿÿ8¾ÕØÏ1
-Bjavascript:S125¦"Remove this commented out code.(Ş–”ò8¾ÕØÏ1
-ijavascript:S905¹"FExpected an assignment or function call and instead saw an expression.(á€õŠ8¾ÕØÏ1
-Gjavascript:S125º"Remove this commented out code.(¡İ§“üÿÿÿÿ8¾ÕØÏ1
-Ajavascript:S125Å"Remove this commented out code.(¦Ù¡m8¾ÕØÏ1
-djavascript:S1481Ï"@Remove the declaration of the unused 'clickedQuestion' variable.(Æƒ­8¾ÕØÏ1
-ajavascript:S1854Ï"=Remove this useless assignment to variable "clickedQuestion".(Æƒ­8¾ÕØÏ1
-Rjavascript:S3504à")Unexpected var, use let or const instead.(¢ÍÅøÿÿÿÿ8¾ÕØÏ1
-Mjavascript:S3504â")Unexpected var, use let or const instead.(û¼Á8¾ÕØÏ1
-pjavascript:S4138å"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(óÍû¸8¾ÕØÏ1
-Mjavascript:S3504å")Unexpected var, use let or const instead.(óÍû¸8¾ÕØÏ1
-|javascript:S3579è"XMake it an object if it must have named properties; otherwise, use a numeric index here.(©©•8¾ÕØÏ1
-Gjavascript:S125¦"Remove this commented out code.(Ğ“‰Õüÿÿÿÿ8¾ÕØÏ1
-Bjavascript:S125¦"Remove this commented out code.(ô á°8¾ÕØÏ1
-Rjavascript:S3504â")Unexpected var, use let or const instead.(Ø´ƒ€ùÿÿÿÿ8Ñ¹ÙÏ1
-Bjavascript:S125å"Remove this commented out code.(êì¬8Ñ¹ÙÏ1
-Gjavascript:S125ë"Remove this commented out code.(Æ’°Íùÿÿÿÿ8Ñ¹ÙÏ1
+|javascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 57 to the 15 allowed.(‚÷ï¡ûÿÿÿÿ8¾ÕØÏ1
+Qjavascript:S3504")Unexpected var, use let or const instead.(¨ˆõœøÿÿÿÿ8¾ÕØÏ1
+Qjavascript:S3504")Unexpected var, use let or const instead.(ø§Íûÿÿÿÿ8¾ÕØÏ1
+Ljavascript:S3504")Unexpected var, use let or const instead.(¡‡¥÷8¾ÕØÏ1
+Qjavascript:S3504")Unexpected var, use let or const instead.(£Éä«üÿÿÿÿ8•Å±®Ó1
+Qjavascript:S3504")Unexpected var, use let or const instead.(ŸÜšåÿÿÿÿÿ8¾ÕØÏ1
+Qjavascript:S3504")Unexpected var, use let or const instead.(Õ´À’ùÿÿÿÿ8¾ÕØÏ1
+^javascript:S1125"6Refactor the code to avoid using this boolean literal.(ï©¾ƒÿÿÿÿÿ8—Å±®Ó1
+sjavascript:S3403#"KRemove this "===" check; it will always be false. Did you mean to use "=="?(òüÆşÿÿÿÿ8—Å±®Ó1
+Ljavascript:S3504+")Unexpected var, use let or const instead.(ÔÔÑ8¾ÕØÏ1
+Ljavascript:S3504,")Unexpected var, use let or const instead.(„É’Ò8¾ÕØÏ1
+Ljavascript:S3504-")Unexpected var, use let or const instead.(Â—ö8¾ÕØÏ1
+Ljavascript:S3504.")Unexpected var, use let or const instead.(¦Î¡ˆ8¾ÕØÏ1
+Ljavascript:S3504/")Unexpected var, use let or const instead.(ï©Ù§8¾ÕØÏ1
+Ljavascript:S35040")Unexpected var, use let or const instead.(ÑÀˆ¼8¾ÕØÏ1
+Qjavascript:S35041")Unexpected var, use let or const instead.(®å£¿ıÿÿÿÿ8¾ÕØÏ1
+Ljavascript:S3504?")Unexpected var, use let or const instead.(´×”8™Å±®Ó1
+Qjavascript:S3504@")Unexpected var, use let or const instead.(´ó°³ùÿÿÿÿ8šÅ±®Ó1
+Ljavascript:S3504X")Unexpected var, use let or const instead.(³ˆñ˜8¾ÕØÏ1
+Fjavascript:S125Z"Remove this commented out code.(ÃĞĞËıÿÿÿÿ8¾ÕØÏ1
+Qjavascript:S3504]")Unexpected var, use let or const instead.(°û¿úÿÿÿÿ8¾ÕØÏ1
+Ajavascript:S125v"Remove this commented out code.(ÕÑÙ¸8¾ÕØÏ1
+Fjavascript:S125x"Remove this commented out code.(—•’§ûÿÿÿÿ8¾ÕØÏ1
+Mjavascript:S3504…")Unexpected var, use let or const instead.(ê®ı‹8¾ÕØÏ1
+Rjavascript:S3504")Unexpected var, use let or const instead.(Ó¯÷èşÿÿÿÿ8¾ÕØÏ1
+ijavascript:S905É"FExpected an assignment or function call and instead saw an expression.(á€õŠ8¾ÕØÏ1
+djavascript:S1481Ş"@Remove the declaration of the unused 'clickedQuestion' variable.(Æƒ­8¾ÕØÏ1
+ajavascript:S1854Ş"=Remove this useless assignment to variable "clickedQuestion".(Æƒ­8¾ÕØÏ1
+Rjavascript:S3504ï")Unexpected var, use let or const instead.(¢ÍÅøÿÿÿÿ8¾ÕØÏ1
+Mjavascript:S3504ñ")Unexpected var, use let or const instead.(û¼Á8¾ÕØÏ1
+pjavascript:S4138ô"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(óÍû¸8¾ÕØÏ1
+Mjavascript:S3504ô")Unexpected var, use let or const instead.(óÍû¸8¾ÕØÏ1
+|javascript:S3579÷"XMake it an object if it must have named properties; otherwise, use a numeric index here.(©©•8¾ÕØÏ1
+Rjavascript:S3504ó")Unexpected var, use let or const instead.(Ø´ƒ€ùÿÿÿÿ8Ñ¹ÙÏ1
+Bjavascript:S125ö"Remove this commented out code.(êì¬8Ñ¹ÙÏ1
+Gjavascript:S125ü"Remove this commented out code.(Æ’°Íùÿÿÿÿ8Ñ¹ÙÏ1

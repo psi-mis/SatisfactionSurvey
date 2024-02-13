@@ -1,11 +1,19 @@
-
 $(document).ready(function () {
-
-  const url = "";
-  const username = '';
-  const password = '';
+  const teleConsultationChannel = "teleconsultation";
+  const url = "http://localhost:3020/https://api-dev.psi-connect.org/R_LA.sat";
+  const username = "";
+  const password = "";
 
   var queryParams = getUrlQueryParams();
+  const surveyData = getSurveyData(queryParams["token"]);
+  
+  var isTelemedicine = surveyData.service_channel == teleConsultationChannel;
+console.log(isTelemedicine);
+  
+  if (isTelemedicine) {
+    const contraceptiveInfoReceived = $(".contraceptive-info-provided-section");
+    contraceptiveInfoReceived.hide();
+  }
 
   const $btnNext = $("#next");
   const $btnBack = $("#back");
@@ -14,31 +22,27 @@ $(document).ready(function () {
   $btnSend.hide();
   $btnBack.hide();
 
-  var firstSection = $('#first-section');
-  var lastSection = $('#last-section');
-  var warningSection = $('#last-section-warning');
-  var isSurveyAv = isSurveyAvailable(queryParams["token"]);
-  console.log(isSurveyAv);
+  var firstSection = $("#first-section");
+  var lastSection = $("#last-section");
+  var warningSection = $("#last-section-warning");
+  var isSurveyAv = surveyData.event_status == "DRAFT";
+
   var currentStep = 1;
 
   firstSection.hide();
   lastSection.hide();
 
-  if(isSurveyAv){
+  if (isSurveyAv) {
     showWelcomeSection();
   }
 
-  if(isSurveyAv == false){
+  if (isSurveyAv == false) {
     showEndingSection();
   }
 
-  if(isSurveyAv === 'error'){
+  if (isSurveyAv === "error") {
     showWarningSection();
   }
-
-
- 
-
 
   var question1 = $("#question-1");
   var question2 = $("#question-2");
@@ -56,13 +60,11 @@ $(document).ready(function () {
   question7.addClass("disabledbutton");
 
   // Hide the "Siguiente" button at startup
-  
 
   // Function to handle clicking on an icon
   function handleIconClick() {
     var selectedValue = $(this).data("value");
     var step3QuizContainer = $(this).closest(".question");
-  
 
     step3QuizContainer.find(".optns").hide();
     step3QuizContainer
@@ -100,12 +102,18 @@ $(document).ready(function () {
 
       $btnSend.hide();
       if (
-        $('input[type="radio"][name="step2brk1y"]:checked').attr("id") === "Si"
+        $('input[type="radio"][name="step2brk1y"]:checked').attr("id") ===
+          "Si" &&
+        !isTelemedicine 
       ) {
         $btnNext.toggle(isStep2an1Checked /* && isStep2an2Checked */);
       } else if (
-        $('input[type="radio"][name="step2brk1y"]:checked').attr("id") === "No"
+        $('input[type="radio"][name="step2brk1y"]:checked').attr("id") ===
+          "No" &&
+        !isTelemedicine
       ) {
+        $btnNext.toggle(isStep2an1Checked);
+      } else if (isTelemedicine) {
         $btnNext.toggle(isStep2an1Checked);
       } else {
         $btnNext.hide();
@@ -120,7 +128,7 @@ $(document).ready(function () {
       //$btnNext.html('Cerrar');
       $btnNext.hide();
       $btnSend.hide();
-      
+
       $('[name="happy"]').show();
     } else {
       $btnNext.hide();
@@ -178,7 +186,6 @@ $(document).ready(function () {
   }
 
   function disableAllOtherQuestions(section) {
-
     const questions = [
       question1,
       question2,
@@ -209,7 +216,7 @@ $(document).ready(function () {
 
   function enableSectionsWithSelectedOptions() {
     const clickedElementId = $(this).attr("id");
-    
+
     const questions = [
       question1,
       question2,
@@ -249,37 +256,35 @@ $(document).ready(function () {
     return vars;
   }
 
-  function isSurveyAvailable(token) {
-    let isAvailable = false;
+  function getSurveyData(token) {
+    let finalResponse = {};
     const payload = {
       action: "survey_status",
       token: token,
     };
 
     const headers = {
-      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
-      "Authorization": "Basic " + btoa(username + ":" + password)
+      Authorization: "Basic " + btoa(username + ":" + password),
     };
 
     $.ajax({
       type: "POST",
       url: url,
       async: false,
-      dataType: 'json',
+      dataType: "json",
       data: JSON.stringify(payload),
       headers: headers,
       success: (response) => {
-        if(response.event_status === "DRAFT" ){
-          isAvailable = true
-        }
+        finalResponse = response;
       },
       error: function (jqXHR, textStatus, errorThrown) {
         warningSection.show();
-        isAvailable = 'error';
+        finalResponse = {}
       },
     });
-    return isAvailable;
+    return finalResponse;
   }
 
   function sendSurveyData() {
@@ -303,16 +308,15 @@ $(document).ready(function () {
     let question5Answer = $(".final-answer5").find(".opt").attr("data-value");
     let question6Answer = $(".final-answer6").find(".opt").attr("data-value");
     let question7Answer = $(".final-answer7").find(".opt").attr("data-value");
-    if (wasInformationDeliveredRadioButton === "true"){
+    if (wasInformationDeliveredRadioButton === "true") {
       wasContraceptiveInfoReceived = true;
     }
 
     const headers = {
-      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
-      "Authorization": "Basic " + btoa(username + ":" + password)
+      Authorization: "Basic " + btoa(username + ":" + password),
     };
-
 
     const payload = {
       action: "survey_record",
@@ -382,15 +386,17 @@ $(document).ready(function () {
       url: url,
       headers: headers,
       data: JSON.stringify(payload),
-      success: (response)=>{endSurvey(response)},
+      success: (response) => {
+        endSurvey(response);
+      },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('*[id*=question-section]:visible').each(function() {
+        $("*[id*=question-section]:visible").each(function () {
           $(this).hide();
         });
-      
+
         showWarningSection();
       },
-      async:false,
+      async: false,
     });
   }
 
@@ -414,14 +420,14 @@ $(document).ready(function () {
     updateNextButtonState();
   }
 
-  function showWelcomeSection(){
+  function showWelcomeSection() {
     firstSection.show();
     lastSection.hide();
     warningSection.hide();
   }
 
-  function showEndingSection(){
-    currentStep=4;
+  function showEndingSection() {
+    currentStep = 4;
     firstSection.hide();
     warningSection.hide();
 
@@ -432,15 +438,15 @@ $(document).ready(function () {
     lastSection.show();
   }
 
-  function showWarningSection(){
-    currentStep=4;
+  function showWarningSection() {
+    currentStep = 4;
     firstSection.hide();
     lastSection.hide();
 
     $btnNext.hide();
     $btnSend.hide();
     $btnBack.hide();
-    
+
     warningSection.show();
   }
 
@@ -453,7 +459,6 @@ $(document).ready(function () {
 
   // Initially hide all 'answers selected'
   $(".answer-selected").hide();
-
 
   $btnNext.click(function () {
     if (currentStep < 4) {
